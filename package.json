@@ -1,0 +1,30 @@
+{
+  "name": "smart-alarm",
+  "version": "1.0.0",
+  "description": "A smart alarm",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vincent0690/smart-alarm.git"
+  },
+  "author": "Vincent0690",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Vincent0690/smart-alarm/issues"
+  },
+  "homepage": "https://github.com/Vincent0690/smart-alarm#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.13.2",
+    "node-cron": "^3.0.0",
+    "node-fetch": "^2.6.1",
+    "path": "^0.12.7",
+    "pug": "^3.0.2",
+    "serve-favicon": "^2.5.0",
+    "websocket": "^1.0.34"
+  }
+}
