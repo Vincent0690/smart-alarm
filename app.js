@@ -1,14 +1,14 @@
 require("dotenv").config();
 
+const moment = require("moment-timezone");
 const favicon = require("serve-favicon");
 const Mongoose = require("mongoose");
 const fetch = require("node-fetch");
 const express = require("express");
 const cron = require("node-cron");
-const moment = require("moment-timezone");
 const path = require("path");
 
-moment.locale("FR");
+moment.locale("fr");
 
 const PORT = process.env.PORT || 8888;
 
@@ -81,15 +81,19 @@ ${content}`);
 	});
 });
 
-cron.schedule("0,30 * * * * *", () => {
+function getTime() {
 	let time = moment().tz("Europe/Paris");
 
+	return `${time.format("HH:mm")}`;
+};
+
+cron.schedule("0,30 * * * * *", () => {
 	clients.forEach(client => {
 		client.send(JSON.stringify({
 			command: "hearthbeat",
-			rest: `${time.format("HH:MM")}`
+			rest: getTime()
 		}));
 	});
-
+	
 	console.log("hearthbeat");
 });
