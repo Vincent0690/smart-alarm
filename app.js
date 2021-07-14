@@ -87,7 +87,7 @@ cron.schedule("0,30 * * * * *", () => {
 	clients.forEach(client => {
 		client.send(JSON.stringify({
 			command: "hearthbeat",
-			rest: `${time.get("hours")}:${time.get("minutes")}`
+			rest: `${time.format("HH:MM")}`
 		}));
 	});
 
