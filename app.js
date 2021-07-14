@@ -87,13 +87,13 @@ function getTime() {
 	return `${time.format("HH:mm")}`;
 };
 
-cron.schedule("0,30 * * * * *", () => {
+cron.schedule("0 * * * * *", () => {
 	clients.forEach(client => {
 		client.send(JSON.stringify({
 			command: "hearthbeat",
 			rest: getTime()
 		}));
 	});
-	
+
 	console.log("hearthbeat");
 });
