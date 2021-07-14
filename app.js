@@ -81,7 +81,7 @@ ${content}`);
 	});
 });
 
-cron.schedule("0,20,40,60 * * * * *", () => {
+cron.schedule("0,30 * * * * *", () => {
 	let time = moment().tz("Europe/Paris");
 
 	clients.forEach(client => {
