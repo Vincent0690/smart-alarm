@@ -5,7 +5,10 @@ const Mongoose = require("mongoose");
 const fetch = require("node-fetch");
 const express = require("express");
 const cron = require("node-cron");
+const moment = require("moment-timezone");
 const path = require("path");
+
+moment.locale("FR");
 
 const PORT = process.env.PORT || 8888;
 
@@ -66,14 +69,22 @@ ${content}`);
 			
 		};*/
 
-		clients.forEach(client => {
+		/*clients.forEach(client => {
 			client.send(content);
-		});
+		});*/
 	}); 
 
 	connection.on("close", connection => {
 		console.log(`Peer ${connection} disconnected.`);
 
 		clients.splice(index, 1);
+	});
+});
+
+cron.schedule("0,20,40,60 * * * * *", () => {
+	let time = moment().tz("Europe/Paris");
+
+	clients.forEach(client => {
+		client.send(`heartbeat:${time.get("hours")}/${time.get("minutes")}`);
 	});
 });
