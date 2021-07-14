@@ -10,6 +10,8 @@ const path = require("path");
 
 moment.locale("fr");
 
+const setupNextAlarm = require("./works/setupNextAlarm");
+
 const PORT = process.env.PORT || 8888;
 
 const app = express();
@@ -88,12 +90,18 @@ function getTime() {
 };
 
 cron.schedule("0 * * * * *", () => {
+	fetch("https://smart-alarm-vb.herokuapp.com/");
+
 	clients.forEach(client => {
 		client.send(JSON.stringify({
 			command: "hearthbeat",
 			rest: getTime()
 		}));
 	});
-
-	console.log("hearthbeat");
 });
+
+cron.schedule("0 20 * * *", () => {
+	setupNextAlarm();
+});
+
+setupNextAlarm();
