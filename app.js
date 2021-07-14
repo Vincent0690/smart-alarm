@@ -85,6 +85,9 @@ cron.schedule("0,30 * * * * *", () => {
 	let time = moment().tz("Europe/Paris");
 
 	clients.forEach(client => {
-		client.send(`heartbeat:${time.get("hours")}/${time.get("minutes")}`);
+		client.send({
+			command: "heartbeat",
+			rest: `${time.get("hours")}:${time.get("minutes")}`
+		});
 	});
 });
