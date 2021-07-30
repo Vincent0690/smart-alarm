@@ -66,10 +66,14 @@ wsServer.on("request", request => {
 
 		console.log(`Received Message from: ${request.key}
 ${content}`);
-		/*
+		
 		switch(parsed_content[0]) {
-			
-		};*/
+			case "run":
+				clients.forEach(client => {
+					client.send(content.replace("run:"));
+				});
+			break;
+		};
 
 		/*clients.forEach(client => {
 			client.send(content);
