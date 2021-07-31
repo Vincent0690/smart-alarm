@@ -71,8 +71,8 @@ ${content}`);
 			case "run":
 				clients.forEach(client => {
 					client.send(JSON.stringify({
-						command: "play",
-						rest: "http://stream.virginradio.fr/virgin.mp3"
+						command: parsed_content[1],
+						rest: parsed_content[2]
 					}));
 				});
 			break;
