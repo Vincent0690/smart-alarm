@@ -59,6 +59,13 @@ wsServer.on("request", request => {
 
 	console.log("Connection accepted.");
 
+	clients.forEach(client => {
+		client.send(JSON.stringify({
+			command: "hearthbeat",
+			rest: getTime()
+		}));
+	});
+
 	connection.on("message", message => {
 		//let content = JSON.parse((message.utf8Data));
 		let content = message.utf8Data;
