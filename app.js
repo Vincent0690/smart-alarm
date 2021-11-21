@@ -8,9 +8,19 @@ const express = require("express");
 const cron = require("node-cron");
 const path = require("path");
 
+const Alarms = require("./models/Alarms");
+
 moment.locale("fr");
 
+moment.relativeTimeThreshold("s", 60);
+moment.relativeTimeThreshold("m", 60);
+moment.relativeTimeThreshold("h", 24);
+moment.relativeTimeThreshold("d", 31);
+moment.relativeTimeThreshold("M", 12);
+moment.relativeTimeThreshold("y", 365);
+
 const setupNextAlarm = require("./works/setupNextAlarm");
+const ledStripController = require("./works/ledStripController");
 
 const PORT = process.env.PORT || 8888;
 
@@ -104,7 +114,7 @@ function getTime() {
 };
 
 cron.schedule("0 * * * * *", () => {
-	fetch("https://smart-alarm-vb.herokuapp.com/");
+	fetch("https://smart-alarm-vb.herokuapp.com/").catch(console.error);
 
 	clients.forEach(client => {
 		client.send(JSON.stringify({
@@ -112,10 +122,41 @@ cron.schedule("0 * * * * *", () => {
 			rest: getTime()
 		}));
 	});
+
+	Alarms.find({
+		rang: false
+	}, (ERR, ALARMS) => {
+		if(ERR) return console.error(ERR);
+
+		ALARMS.forEach(alarm => {
+			if(!moment(alarm.at).isAfter(moment())) return;//Remove the '!' here !!!!!!!!!!!!!
+
+			//ring
+
+			clients.forEach(client => {
+				client.send(JSON.stringify({
+					command: "message",
+					rest: alarm.message
+				}));
+			});
+
+			ledStripController.ledON()
+			.then(() => {
+				alarm.rang = true;
+
+				alarm.markModified("rang");
+	
+				alarm.save();
+			})
+			.catch(() => {
+				//Fallback alarm (ring phone)
+			});
+		});
+	});
 });
 
 /*cron.schedule("0 20 * * *", () => {
 	setupNextAlarm();
-});
+});*/
 
-setupNextAlarm();*/
+setupNextAlarm();
