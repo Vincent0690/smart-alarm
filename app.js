@@ -129,7 +129,7 @@ cron.schedule("0 * * * * *", () => {
 		if(ERR) return console.error(ERR);
 
 		ALARMS.forEach(alarm => {
-			if(!moment(alarm.at).isAfter(moment())) return;//Remove the '!' here !!!!!!!!!!!!!
+			if(moment(alarm.at).isAfter(moment())) return;//Remove the '!' here !!!!!!!!!!!!!
 
 			//ring
 
@@ -155,8 +155,8 @@ cron.schedule("0 * * * * *", () => {
 	});
 });
 
-/*cron.schedule("0 20 * * *", () => {
+cron.schedule("0 20 * * *", () => {
 	setupNextAlarm();
-});*/
+});
 
-setupNextAlarm();
+//setupNextAlarm();
