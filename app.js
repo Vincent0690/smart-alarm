@@ -93,6 +93,11 @@ ${content}`);
 					}));
 				});
 			break;
+
+			case "led":
+				if(parsed_content[1] === "on") ledStripController.ledON();
+				if(parsed_content[1] === "off") ledStripController.ledOFF();
+			break;
 		};
 
 		/*clients.forEach(client => {
