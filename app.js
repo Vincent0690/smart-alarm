@@ -136,7 +136,7 @@ cron.schedule("0 * * * * *", () => {
 		ALARMS.forEach(alarm => {
 			console.log(`Alarm ${moment(alarm.at).format("HH:mm:ss DD/MM/YYYY")}`);
 
-			if(moment(alarm.at).isAfter(moment())) return;//Remove the '!' here !!!!!!!!!!!!!
+			if(moment(alarm.at).isSameOrBefore(moment())) return;//Remove the '!' here !!!!!!!!!!!!!
 
 			console.log(`Alarm ${moment(alarm.at).format("HH:mm:ss DD/MM/YYYY")} will ring now`);
 			//ring
