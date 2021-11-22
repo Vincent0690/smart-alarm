@@ -134,19 +134,28 @@ cron.schedule("0 * * * * *", () => {
 		if(ERR) return console.error(ERR);
 
 		ALARMS.forEach(alarm => {
+			console.log(`Alarm ${moment(alarm.at).format("HH:mm:ss DD/MM/YYYY")}`);
+
 			if(moment(alarm.at).isAfter(moment())) return;//Remove the '!' here !!!!!!!!!!!!!
 
+			console.log(`Alarm ${moment(alarm.at).format("HH:mm:ss DD/MM/YYYY")} will ring now`);
 			//ring
+
+			//need to activate the relay 5mn before the alarm
 
 			clients.forEach(client => {
 				client.send(JSON.stringify({
 					command: "message",
 					rest: alarm.message
 				}));
+
+				console.log(`Alarm ${moment(alarm.at).format("HH:mm:ss DD/MM/YYYY")} send to a client`);
 			});
 
 			ledStripController.ledON()
 			.then(() => {
+				console.log(`Alarm ${moment(alarm.at).format("HH:mm:ss DD/MM/YYYY")} turned on LEDs`);
+
 				alarm.rang = true;
 
 				alarm.markModified("rang");
@@ -155,6 +164,7 @@ cron.schedule("0 * * * * *", () => {
 			})
 			.catch(() => {
 				//Fallback alarm (ring phone)
+				console.log(`Alarm ${moment(alarm.at).format("HH:mm:ss DD/MM/YYYY")} could not turn on LEDs`);
 			});
 		});
 	});
