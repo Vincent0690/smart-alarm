@@ -51,7 +51,7 @@ module.exports = () => {
 
 						Alarms.create({
 							at: moment(`${tomorrow.tz("Europe/Paris").format("YYYYMMDD")}T${config.workAlarm}`, "YYYYMMDDTHHmmss").format("YYYYMMDDTHHmmss"),
-							message: "Journée de travail",
+							message: "Journee de travail",
 							reason: "work",
 							rang: false
 						});

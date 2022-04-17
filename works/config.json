@@ -6,5 +6,7 @@
 	"requestJourneys": 10,
 	"workAlarm": "053000",
 	"warmupDuration": -45,
-	"noAlarmAfterThis": "073000"
+	"noAlarmAfterThis": "073000",
+	"schoolCalendar": "https://mathis67.ymag.cloud/index.php/planning/ical/C63278DA-9407-435B-A7C7-47414985E89D/",
+	"ownURL": "https://smart-alarm-vb.herokuapp.com/"
 }

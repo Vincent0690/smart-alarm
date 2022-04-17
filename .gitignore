@@ -1,3 +1,5 @@
 /.env
 /node_modules
 /package-lock.json
+/models/trains22-10.json
+/works/config.json

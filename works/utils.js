@@ -30,7 +30,7 @@ function isFreeDay(date) {
 
 function isClassDay(date) {
 	return new Promise((resolve, reject) => {
-		ical.async.fromURL("https://mathis67.ymag.cloud/index.php/planning/ical/C63278DA-9407-435B-A7C7-47414985E89D/", {
+		ical.async.fromURL(config.schoolCalendar, {
 			"method": "GET"
 		}, (err, AGENDA) => {
 			if(err) return reject(err);

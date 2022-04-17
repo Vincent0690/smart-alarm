@@ -1,0 +1,12 @@
+{
+	"stations": {
+		"house": "stop_area%----------",
+		"school": "stop_area%----------"
+	},
+	"requestJourneys": 10,
+	"workAlarm": "053000",
+	"warmupDuration": -45,
+	"noAlarmAfterThis": "073000",
+	"schoolCalendar": "---------",
+	"ownURL": "https://-------.herokuapp.com/"
+}

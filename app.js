@@ -9,6 +9,7 @@ const cron = require("node-cron");
 const path = require("path");
 
 const Alarms = require("./models/Alarms");
+const config = require("./works/config.json");
 
 moment.locale("fr");
 
@@ -119,7 +120,7 @@ function getTime() {
 };
 
 cron.schedule("0 * * * * *", () => {
-	fetch("https://smart-alarm-vb.herokuapp.com/").catch(console.error);
+	fetch(config.ownURL).catch(console.error);
 
 	clients.forEach(client => {
 		client.send(JSON.stringify({
@@ -142,6 +143,7 @@ cron.schedule("0 * * * * *", () => {
 			//ring
 
 			//need to activate the relay 5mn before the alarm
+			//so the led controller has time to connect to WIFI (can't let it on, LEDS make a little light when off)
 
 			clients.forEach(client => {
 				client.send(JSON.stringify({
@@ -165,6 +167,8 @@ cron.schedule("0 * * * * *", () => {
 			.catch(() => {
 				//Fallback alarm (ring phone)
 				console.log(`Alarm ${moment(alarm.at).format("HH:mm:ss DD/MM/YYYY")} could not turn on LEDs`);
+
+				//code to make the phone ring
 			});
 		});
 	});
